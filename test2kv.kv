@@ -1,0 +1,380 @@
+Wm:
+    W1:
+    W2:
+    Est:
+    Ensa:
+    Encg:
+    Fs:
+    Not:
+    Etu:
+    Aut:
+    Error:
+    Mod:
+    Res:
+
+
+
+
+<W1>:
+    name:'W1'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img3.png'
+            Label:
+                text: 'LOGING'
+                color: 1 , 0 , 0 , 1
+                font_size: 22
+            Label:
+                text: 'PLEASE ENTER PASSWORD:'
+                font_hint:(0.1,0.3)
+
+            TextInput:
+                id:passw
+                text:''
+                multiline: False
+                size_hint:(0.1,0.3)
+
+        Button:
+            text:'LOGIN'
+            size_hint:(0.1,0.1)
+            on_release:
+                app.root.current='W2' if passw.text=='1' else 'Error'
+                root.manager.transition.direction='up'
+
+<W2>:
+    name:'W2'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:2
+            Image:
+                source:'img3.png'
+                size:(30,30)
+            Label:
+                text:'WELCOME'
+
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'EST'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'ENSA'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'FS'
+                on_release:
+                    app.root.current='Fs'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'ENCG'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W1'
+                root.manager.transition.direction='down'
+#=================================================================================
+
+<Est>:
+    name:'Est'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img1.png'
+            Label:
+                text: 'WELCOME TO EST KENITRA'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'LES ETUDIENTS'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'LES NOTES'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'LES MODULES'
+                on_release:
+                    app.root.current='Mod'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'VALIDATION'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W2'
+                root.manager.transition.direction='down'
+
+#=================================================================================
+
+
+
+#=================================================================================
+
+
+<Encg>:
+    name:'Encg'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img1.png'
+            Label:
+                text: 'WELCOME TO EST KENITRA'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'LES ETUDIENTS'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'LES NOTES'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'LES MODULES'
+                on_release:
+                    app.root.current='Mod'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'VALIDATION'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W2'
+                root.manager.transition.direction='down'
+#=================================================================================
+
+
+<Ensa>:
+    name:'Ensa'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img1.png'
+            Label:
+                text: 'WELCOME TO EST KENITRA'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'LES ETUDIENTS'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'LES NOTES'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'LES MODULES'
+                on_release:
+                    app.root.current='Fs'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'VALIDATION'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W2'
+                root.manager.transition.direction='down'
+#=================================================================================
+<Not>:
+    name:'Not'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img21.jpg'
+            Label:
+                text: 'LES NOTES'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+#=================================================================================
+
+<Etu>:
+    name:'Etu'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img21.jpg'
+            Label:
+                text: 'LES ETUDIENTS'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+
+#=================================================================================
+<Fs>:
+
+
+#=================================================================================
+<Mod>:
+    name:'Mod'
+    GridLayout:
+        rows:2
+        Label:
+            id:LMOD
+            text:'ENTREZ LES NOTES DES MODULES DE S1: '
+            color: .89 , .97 , .130 , 1
+            font_size: 16
+        GridLayout:
+            cols:2
+            rows:5
+            Label:
+                text:'MODELE: 1'
+
+            TextInput:
+                id:M1
+                multiline:False
+                text:'hn'
+            Label:
+                text:'MODELE: 2'
+
+            TextInput:
+                id:M2
+                multiline:False
+                text:''
+            Label:
+                text:'MODELE: 3'
+
+            TextInput:
+                multiline:False
+                id:M3
+                text:''
+            Label:
+                text:'MODELE: 4'
+            TextInput:
+                multiline:False
+                id:M4
+                text:''
+
+            Button:
+                text:'RESULTAT:'
+                on_release:
+                    M11=float(M1.text)
+                    M22=float(M2.text)
+                    M33=float(M3.text)
+                    M44=float(M4.text)
+                    mods=[M11,M22,M33,M44]
+                    for i in mods:\
+                    print(i)
+                    root.manager.transition.direction='up'
+
+
+<Res>:
+    name:'Res'
+    GridLayout:
+        rows:2
+        Label:
+            text:'VALIDEE ,,'
+            color: .89 , .97 , .130 , 1
+            font_size: 16
+        Button:
+            text:'BACK'
+            on_release:
+                app.root.current= 'Mod'
+                root.manager.transition.direction='down'
+
+
+
+
+
+
+
+
+
+#=================================================================================
+
+
+<Aut>:
+    name:'Aut'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img21.jpg'
+            Label:
+                text: 'AUTRE'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+
+#=================================================================================
+<Error>:
+    name:'Error'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img2.png'
+            Label:
+                text: 'ERROR IN PASSWORD !!! '
+                color: 100/255.0 , 4 , 0.6 , 1
+                font_size: 22
+            Button:
+                text:' TRY AGAINE !!'
+                size_hint:0.1,0.3
+                on_release:
+                    app.root.current='W1'
+                    root.manager.transition.direction='down'
+
+
+
+
+#=================================================================================
+#=================================================================================
+#=================================================================================
+#=================================================================================

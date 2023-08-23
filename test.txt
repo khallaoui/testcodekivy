@@ -1,0 +1,1620 @@
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.clock import Clock
+from kivy.graphics import Color, Rectangle
+
+
+class TestApp(App):
+
+    @staticmethod
+    def get_x(label, ref_x):
+        """ Return the x value of the ref/anchor relative to the canvas """
+        return label.center_x - label.texture_size[0] * 0.5 + ref_x
+
+    @staticmethod
+    def get_y(label, ref_y):
+        """ Return the y value of the ref/anchor relative to the canvas """
+        # Note the inversion of direction, as y values start at the top of
+        # the texture and increase downwards
+        return label.center_y + label.texture_size[1] * 0.5 - ref_y
+
+    def show_marks(self, label):
+
+        # Indicate the position of the anchors with a red top marker
+        for name, anc in label.anchors.items():
+            with label.canvas:
+                Color(1, 0, 0)
+                Rectangle(pos=(self.get_x(label, anc[0]),
+                               self.get_y(label, anc[1])),
+                          size=(3, 3))
+
+        # Draw a green surround around the refs. Note the sizes y inversion
+        for name, boxes in label.refs.items():
+            for box in boxes:
+                with label.canvas:
+                    Color(0, 1, 0, 0.25)
+                    Rectangle(pos=(self.get_x(label, box[0]),
+                                   self.get_y(label, box[1])),
+                              size=(box[2] - box[0],
+                                    box[1] - box[3]))
+
+    def build(self):
+        label = Label(
+            text='[anchor=a]a\nChars [anchor=b]b\n[ref=myref]ref[/ref]',
+            markup=True)
+        Clock.schedule_once(lambda dt: self.show_marks(label), 1)
+        return label
+
+TestApp().run()
+
+=====================================================================================
+import kivy
+from docutils.nodes import image
+
+Module: kivy.uix.image
+
+Wimg: object = image(source='my-logo.JPG')
+
+=====================================================================================
+from kivy.core.image import Image as CoreImage
+im = CoreImage("image.png")
+
+=====================================================================================
+import kivy
+kivy.require('1.0.6') # replace with your current kivy version !
+
+from kivy.app import App
+from kivy.uix.label import Label
+
+
+class MyApp(App):
+
+    def build(self):
+        return Label(text='Hello world')
+
+
+if __name__ == '__main__':
+    MyApp().run()
+=====================================================================================
+# Program to explain how to add image in kivy
+
+# import kivy module
+import kivy
+
+# base Class of your App inherits from the App class.
+# app:always refers to the instance of your application
+from kivy.app import App
+
+# this restrict the kivy version i.e
+# below this kivy version you cannot
+# use the app or software
+kivy.require('1.9.0')
+
+# The Image widget is used to display an image
+# this module contain all features of images
+from kivy.uix.image import Image
+
+
+# creating the App class
+class MyApp(App):
+
+    # defining build()
+
+    def build(self):
+        # return image
+        return Image(source='img2.jpg')
+
+
+# run the App
+MyApp().run()
+
+
+=====================================================================================
+
+# Program to Show how to use images in kivy
+
+# import kivy module
+import kivy
+	
+# base Class of your App inherits from the App class.
+# app:always refers to the instance of your application
+from kivy.app import App
+
+# this restrict the kivy version i.e
+# below this kivy version you cannot
+# use the app or software
+kivy.require('1.9.0')
+
+# The Image widget is used to display an image
+# this module contain all features of images
+from kivy.uix.image import Image
+
+# The Widget class is the base class required for creating Widgets
+from kivy.uix.widget import Widget
+
+# to change the kivy default settings we use this module config
+from kivy.config import Config
+
+# 0 being off 1 being on as in true / false
+# you can use 0 or 1 && True or False
+Config.set('graphics', 'resizable', True)
+
+
+# creating the App class
+class MyApp(App):
+
+	# defining build()
+	
+	def build(self):
+		
+		# loading image
+		self.img = Image(source ='download.jpg')
+
+		# By default, the image is centered and fits
+		# inside the widget bounding box.
+		# If you don’t want that,
+		# you can set allow_stretch to
+		# True and keep_ratio to False.
+		self.img.allow_stretch = True
+		self.img.keep_ratio = False
+
+		# Providing Size to the image
+		# it varies from 0 to 1
+		self.img.size_hint_x = 1
+		self.img.size_hint_y = 1
+
+		# Position set
+		self.img.pos = (200, 100)
+
+		# Opacity adjust the fadeness of the image if
+		# 0 then it is complete black
+		# 1 then original
+		# it varies from 0 to 1
+		self.img.opacity = 1
+		
+
+		# adding image to widget
+		s = Widget()
+		s.add_widget(self.img)
+
+		# return widget
+		return s
+
+# run the app
+MyApp().run()
+
+=====================================================================================
+# Simple program to show how we add AsyncImage in kivy App
+
+# import kivy module
+import kivy
+
+# base Class of your App inherits from the App class.
+# app:always refers to the instance of your application
+from kivy.app import App
+
+# this restrict the kivy version i.e
+# below this kivy version you cannot
+# use the app or software
+kivy.require('1.9.0')
+
+# The Image widget is used to display an image
+# this module contains all features of images
+from kivy.uix.image import AsyncImage
+
+
+# creating the App class
+class MyApp(App):
+
+    # defining build()
+
+    def build(self):
+        # return image
+        return AsyncImage(source='http://kivy.org/logos/kivy-logo-black-64.png')
+
+
+# run the App
+MyApp().run()
+
+=====================================================================================
+from kivy.app import App
+from kivy.uix.button import Button
+class HelloApp(App):
+ def build(self):
+    return Button(text='Hello Berlin')
+
+HelloApp().run()
+
+
+=====================================================================================
+import kivy
+from kivy.app import App
+from kivy.uix.widget import Widget
+
+class PongGame(Widget):
+    pass
+
+class PongApp(App):
+    def build(self):
+        return PongGame()
+    
+if __name__ == '__main__':
+ PongApp().run()
+=====================================================================================
+
+from kivy . app import App
+from kivy . config import Config
+from kivy . uix . boxlayout import BoxLayout
+from kivy . uix . button import Button
+from kivy . uix . label import Label
+from kivy . uix . textinput import TextInput
+
+class LoginApp( App ):
+    def build( self ):
+        self.title = 'Se connecter'
+        box = BoxLayout ( orientation ='horizontal ')
+        box.add_widget ( Label ( text ='Pin code '))
+        box.add_widget ( TextInput () )
+        box.add_widget ( Button ( text ='Entrer '))
+        return box
+
+# Configuration de la taille de la fenêtre
+Config.set ('graphics ', 'width ', 350 )
+Config.set ('graphics ', 'height ', 50 )
+
+# Lancement de l’interface graphique
+LoginApp().run()
+
+
+=====================================================================================
+box = BoxLayout ( orientation =’horizontal ’)
+box . add_widget ( Label ( text =’Pin code ’))
+box . add_widget ( TextInput () )
+box . add_widget ( Button ( text =’Entrer ’))
+=====================================================================================
+class GridGameApp ( App ):
+    def build ( self ):
+        self . title = 'Grid Game '
+        for i in range (12) :
+            grid . add_widget ( Button ( text = str (i + 1) ))
+        return grid
+
+=====================================================================================
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+
+class MainApp(App):
+    def build(self):
+        self.operators = ["/", "*", "+", "-"]
+        self.last_was_operator = None
+        self.last_button = None
+        main_layout = BoxLayout(orientation="vertical")
+        self.solution = TextInput(
+            multiline=False, readonly=True, halign="right", font_size=55
+        )
+        main_layout.add_widget(self.solution)
+        buttons = [
+            ["7", "8", "9", "/"],
+            ["4", "5", "6", "*"],
+            ["1", "2", "3", "-"],
+            [".", "0", "C", "+"],
+        ]
+        for row in buttons:
+            h_layout = BoxLayout()
+            for label in row:
+                button = Button(
+                    text=label,
+                    pos_hint={"center_x": 0.5, "center_y": 0.5},
+                )
+                button.bind(on_press=self.on_button_press)
+                h_layout.add_widget(button)
+            main_layout.add_widget(h_layout)
+
+        equals_button = Button(
+            text="=", pos_hint={"center_x": 0.5, "center_y": 0.5}
+        )
+        equals_button.bind(on_press=self.on_solution)
+        main_layout.add_widget(equals_button)
+
+        return main_layout
+=====================================================================================
+
+from kivy . app import App
+from kivy . config import Config
+from kivy . uix . boxlayout import BoxLayout
+from kivy . uix . button import Button
+from kivy . uix . label import Label
+from kivy . uix . textinput import TextInput
+
+
+
+
+class FreePosApp(App):
+    def build(self):
+        self.title = 'Free Positioning '
+        box = FloatLayout(size=(200, 150))
+        box.add_widget(Button(text='A', size_hint = (0.3, 0.2), pos= (0, 0) ))
+        box.add_widget(Button(text='B', size_hint = (0.3, 0.2), pos = (50, 80) ))
+        return box
+
+=====================================================================================
+from kivymd.app import MDApp
+from kivymd.uix.card import MDCard
+from kivymd.uix.behaviors import RoundedRectangularElevationBehavior
+from kivy.uix.screenmanager import ScreenManager,Screen
+from kivymd.uix.fitimage import FitImage
+from kivy.lang.builder import Builder
+from kivymd.uix.widget import MDWidget
+from kivymd.uix.toolbar import MDTopAppBar
+from kivymd.uix.label import MDLabel
+from kivy.metrics import dp
+from kivy.uix.boxlayout import BoxLayout
+from kivymd.uix.selectioncontrol import MDCheckbox
+from kivymd.uix.textfield.textfield import MDTextField
+from kivymd.theming import ThemableBehavior
+from kivymd.uix.list import MDList,OneLineIconListItem
+from kivymd.uix.list import IconLeftWidgetWithoutTouch
+from kivy.uix.widget import Widget
+from kivy.uix.button import Button
+from kivy.core.window import Window
+from multiprocessing import Process
+from kivy.uix.scrollview import ScrollView
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.uix.stacklayout import StackLayout
+from kivymd.uix.navigationdrawer import MDNavigationDrawer,MDNavigationLayout
+
+# Set the Window Size
+Window.size=(1280,800)
+# class My_item_elevation(MDCard,RoundedRectangularElevationBehavior):
+#     pass
+class Items_of_Menu(MDBoxLayout):
+    def __init__(self,**kwargs):
+        super(Items_of_Menu,self).__init__(**kwargs)
+        self.size_hint=(1,0.9)
+        scrollbarwin=ScrollView()
+        content_box=BoxLayout(orientation='vertical',padding=dp(8),spacing=dp(8),size_hint=(1,None))
+        content_box.bind(minimum_height=content_box.setter('height'))
+        
+        # for loop which is used for adding the items in the as a list
+        for i in range(0,100):
+            Template_card= Elevation(
+                size_hint_y=None,
+                size_hint_x=.960,
+                height = dp(100),
+                padding = dp(4),
+                pos_hint={'center_y': .5, 'center_x': .490},
+                radius = [20,],
+                elevation = 4,
+
+            )
+            checkbox=MDCheckbox(
+                size_hint=(None, None),
+                size= (dp(48),dp(48)),
+                pos_hint={'center_y': .5}
+            )
+            image_box=MDBoxLayout(adaptive_size=True)
+            image=FitImage(
+                source="D:/Study/Python/Kivy/images/2.jpg",
+                size_hint= (None, None),
+                height=dp(80),
+                width=dp(130),
+                radius=[12,],
+                pos_hint={'center_y':0.5}
+
+            )
+            image_box.add_widget(image)
+            text_box=MDBoxLayout(orientation="vertical",adaptive_height=True,pos_hint={'center_y':0.5},padding=[12,0,0,0])
+            item_name=MDLabel(text="Hello,How are you? I think you are fine",font_style="H5",size_hint=(1,None),bold=True,theme_text_color="Primary")
+            item_name.bind(texture_size=item_name.setter('size'))
+            price=MDLabel(text=u"Price: \u20B9400/per",font_style="Subtitle1",size_hint=(1,None),bold=True,theme_text_color="Hint")
+            price.bind(texture_size=price.setter('size'))
+            quantitybox=MDBoxLayout(orientation='vertical',adaptive_height=True,size_hint_x=0.2,pos_hint = {'center_y': .5,'center_x':0.5})
+            quantityfield=MDTextField(
+                hint_text= "Quantity",
+                mode= "rectangle",
+                size_hint=(None,None),
+                width=dp(80),
+                height= dp(40),
+                padding=[0,0,15,0]
+            )
+            quantitybox.add_widget(quantityfield)
+            Template_card.add_widget(checkbox)
+            Template_card.add_widget(image_box)
+            Template_card.add_widget(text_box)
+            text_box.add_widget(item_name)
+            text_box.add_widget(price)
+            Template_card.add_widget(quantitybox)
+            content_box.add_widget(Template_card)
+        scrollbarwin.add_widget(content_box)
+        self.add_widget(scrollbarwin)
+
+class navigation(Screen):
+    def __init__(self,**kwargs):
+        super(navigation,self).__init__(**kwargs)
+        # Navigation Layout
+        nav_layout=MDNavigationLayout()
+
+        # Theme Color
+        theme=ThemableBehavior()
+
+        # Screen Manager
+        scr_mang=ScreenManager()
+
+        # Navigation Drawer
+        nav_drawer=MDNavigationDrawer()
+
+        # List of Items
+        self.list_for_item=MDList()
+
+        # Put Items in List
+        #1
+        icon_image = IconLeftWidgetWithoutTouch(icon="food")
+        item_list = OneLineIconListItem(text="Main Course", theme_text_color="Custom", text_color=theme.theme_cls.text_color)
+        item_list.add_widget(icon_image)
+        item_list.bind(on_release=lambda x: self.Change_Screen(x))
+        self.list_for_item.add_widget(item_list)
+        #2
+        icon_image2 = IconLeftWidgetWithoutTouch(icon="coffee")
+        item2_list = OneLineIconListItem(text="Tea and Coffee", theme_text_color="Custom", text_color=theme.theme_cls.text_color)
+        item2_list.add_widget(icon_image2)
+        item2_list.bind(on_release=lambda x: self.Change_Screen(x))
+        self.list_for_item.add_widget(item2_list)
+        #3
+        icon_image3 = IconLeftWidgetWithoutTouch(icon="ice-cream")
+        item3_list = OneLineIconListItem(text="Ice Creams", theme_text_color="Custom", text_color=theme.theme_cls.text_color)
+        item3_list.add_widget(icon_image3)
+        item3_list.bind(on_release=lambda x: self.Change_Screen(x))
+        self.list_for_item.add_widget(item3_list)
+        #4
+        icon_image4 = IconLeftWidgetWithoutTouch(icon="bottle-soda")
+        item4_list = OneLineIconListItem(text="Cold Drinks", theme_text_color="Custom", text_color=theme.theme_cls.text_color)
+        item4_list.add_widget(icon_image4)
+        item4_list.bind(on_release=lambda x: self.Change_Screen(x))
+        self.list_for_item.add_widget(item4_list)
+        #5
+        icon_image5 = IconLeftWidgetWithoutTouch(icon="hamburger")
+        item5_list = OneLineIconListItem(text="Fast Food", theme_text_color="Custom", text_color=theme.theme_cls.text_color)
+        item5_list.add_widget(icon_image5)
+        item5_list.bind(on_release=lambda x: self.Change_Screen(x))
+        self.list_for_item.add_widget(item5_list)
+        #6
+        icon_image6 = IconLeftWidgetWithoutTouch(icon="food-takeout-box")
+        item6_list = OneLineIconListItem(text="Special Dishes", theme_text_color="Custom", text_color=theme.theme_cls.text_color)
+        item6_list.add_widget(icon_image6)
+        item6_list.bind(on_release=lambda x: self.Change_Screen(x))
+        self.list_for_item.add_widget(item6_list)
+
+        # Whole Content box is here
+        content_box=MDBoxLayout(orientation="vertical",spacing=dp(8),padding=dp(8))
+
+        # Screen Stuff is here
+        items_part=Items_of_Menu()
+
+
+
+
+        # Hotel Information
+        hotel_image=FitImage(source="Hotel logo.jpg",radius=[100,100,100,100],size_hint=(None,None),size=(dp(100),dp(100)),pos_hint={"center_x":0.5})
+        hotel_name=MDLabel(text="Hotel Heera Panna and Family Restaurant",size_hint=(1,None))
+        hotel_name.font_style="Subtitle2"
+        hotel_name.bind(texture_size=hotel_name.setter("size"))
+
+        # Email Info
+        email = MDLabel(text="17288hdkdndk@gmail.com", size_hint=(1,None))
+        email.bind(texture_size=email.setter("size"))
+        email.font_style="Caption"
+
+        # ScrollBar for Items of List in Navigation Drawer
+        nav_scroll=ScrollView()
+
+        # Screen which is a child of  Whole Content Box
+        scr=Screen()
+
+        # the Top Toolbar  of the Window(Header)
+        box=MDBoxLayout(orientation="vertical")
+        self.toolbar=MDTopAppBar(title="Demo App",left_action_items=[["menu",lambda x:nav_drawer.set_state("open")]],elevation=10)
+
+
+        # Adding the Child Widget to the Parent Widget
+        box.add_widget(self.toolbar)
+        box.add_widget(items_part)
+        scr.add_widget(box)
+        scr_mang.add_widget(scr)
+        nav_layout.add_widget(scr_mang)
+        content_box.add_widget(hotel_image)
+        content_box.add_widget(hotel_name)
+        content_box.add_widget(email)
+        nav_scroll.add_widget(self.list_for_item)
+        content_box.add_widget(nav_scroll)
+        nav_drawer.add_widget(content_box)
+        nav_layout.add_widget(nav_drawer)
+        self.add_widget(nav_layout)
+    def Change_Screen(self,instance):
+        value=instance.text
+        if MymdCard.sm.current_screen!=value:
+            MymdCard.sm.current=value
+
+
+class mainHeading(MDWidget,Widget):
+    pass
+class template:
+    pass
+
+class Elevation(RoundedRectangularElevationBehavior,MDCard):
+    pass
+
+
+class FirstWin(RoundedRectangularElevationBehavior,Screen,mainHeading):
+    textAndImageReference={"main_txt":[],"image":[],"hint_txt":[]}
+
+    Category_names=["Main Course","Tea and Coffee","Ice Creams","Cold Drinks","Fast Food","Special Dishes"]
+    def __init__(self,**kwargs):
+        super(FirstWin,self).__init__(**kwargs)
+
+        scrollbar=ScrollView(size_hint_y=None,pos_hint={'x':0,'top':0.850},size=(Window.width,Window.height))
+        secondary_widget=StackLayout(size_hint=(1,None),spacing=50,padding=20)
+        secondary_widget.bind(minimum_height=secondary_widget.setter('height'))
+        for i in range(0,len(self.Category_names)):
+            mycard=Elevation(
+                elevation=15,
+                size_hint =(0.2,None),
+                height=350,
+                orientation='vertical',
+                radius= [36, ],
+                ripple_behavior=True,
+                focus_behavior=True
+
+            )
+            mycard.bind(size=self.adjust_sizes)
+            image = FitImage(radius=[36,36,0,0],size_hint_y=3, size_hint_x=1,orientation="vertical")
+            imagebutton = Button(background_normal="D:/Study/Python/Kivy/images/1.jpg",
+                                 background_down="D:/Study/Python/Kivy/images/1.jpg",
+                                 size_hint_y=550.0,
+                                 size_hint_x=1,
+                                 pos_hint={'x': 0, 'y': 0}
+                                 )
+            self.textAndImageReference["image"].append(imagebutton)
+            imagebutton.bind(on_release=lambda x:self.Change_Menu_category(x))
+            texture_part = MDBoxLayout( md_bg_color=(46 / 255, 8 / 255, 211 / 255, .5),
+                                         radius=[0, 0, 36, 36],orientation="vertical")
+            main_text = Button(
+                text=self.Category_names[i],
+                halign="center",
+                bold=True,
+                font_size=mycard.width /6,
+                background_normal='',
+                background_color=(0, 0, 0, 0)
+            )
+            self.textAndImageReference["main_txt"].append(main_text)
+            main_text.bind(on_release=lambda x:self.Change_Menu_category(x))
+            Hint_text = Button(
+                text="Food Menu",
+                halign="center",
+                font_size=mycard.width/6,
+                bold=True,
+                color=(206 / 255, 203 / 255, 203 / 255, 0.2),
+                background_normal='',
+                background_color=(0, 0, 0, 0)
+            )
+            self.textAndImageReference["hint_txt"].append(Hint_text)
+            Hint_text.bind(on_release=lambda x:self.Change_Menu_category(x))
+            image.add_widget(imagebutton)
+            mycard.add_widget(image)
+            texture_part.add_widget(main_text)
+            texture_part.add_widget(Hint_text)
+            mycard.add_widget(texture_part)
+            secondary_widget.add_widget(mycard)
+        last_one=MDBoxLayout(size_hint=(1,None),height=20)
+        secondary_widget.add_widget(last_one)
+        scrollbar.add_widget(secondary_widget)
+
+        self.add_widget(scrollbar)
+
+    def adjust_sizes(self, mycard, new_size):
+        for i in range(0,len(self.textAndImageReference["main_txt"])):
+            self.textAndImageReference["main_txt"][i].font_size =mycard.width/10
+            self.textAndImageReference["hint_txt"][i].font_size =mycard.width/15
+    def Change_Menu_category(self,instance):
+        for i in range(0,len(self.textAndImageReference["main_txt"])):
+            if instance==self.textAndImageReference["main_txt"][i]:
+                item=self.textAndImageReference["main_txt"][i].text
+                MymdCard.sm.current=item
+            elif instance==self.textAndImageReference["hint_txt"][i]:
+                item=self.textAndImageReference["main_txt"][i].text
+                MymdCard.sm.current=item
+            elif instance==self.textAndImageReference["image"][i]:
+                item=self.textAndImageReference["main_txt"][i].text
+                MymdCard.sm.current=item
+
+
+
+class Main_Course(navigation):
+    def __init__(self,**kwargs):
+        super(Main_Course,self).__init__(**kwargs)
+        name="Main Course"
+        color=ThemableBehavior()
+        self.toolbar.title=name
+        for item in self.list_for_item.children:
+            if item.text==name:
+                item.text_color=color.theme_cls.primary_color
+
+class Tea_Coffee(navigation):
+    def __init__(self, **kwargs):
+        super(Tea_Coffee, self).__init__(**kwargs)
+        name = "Tea and Coffee"
+        color = ThemableBehavior()
+        self.toolbar.title = name
+        for item in self.list_for_item.children:
+            if item.text == name:
+                item.text_color = color.theme_cls.primary_color
+class Ice_creams(navigation):
+    def __init__(self, **kwargs):
+        super(Ice_creams, self).__init__(**kwargs)
+        name = "Ice Creams"
+        color = ThemableBehavior()
+        self.toolbar.title = name
+        for item in self.list_for_item.children:
+            if item.text == name:
+                item.text_color = color.theme_cls.primary_color
+class Cold_drinks(navigation):
+    def __init__(self, **kwargs):
+        super(Cold_drinks, self).__init__(**kwargs)
+        name = "Cold Drinks"
+        color = ThemableBehavior()
+        self.toolbar.title = name
+        for item in self.list_for_item.children:
+            if item.text == name:
+                item.text_color = color.theme_cls.primary_color
+class Fast_food(navigation):
+    def __init__(self, **kwargs):
+        super(Fast_food, self).__init__(**kwargs)
+        name = "Fast Food"
+        color = ThemableBehavior()
+        self.toolbar.title = name
+        for item in self.list_for_item.children:
+            if item.text == name:
+                item.text_color = color.theme_cls.primary_color
+class Special_dishes(navigation):
+    def __init__(self, **kwargs):
+        super(Special_dishes, self).__init__(**kwargs)
+        name = "Special Dishes"
+        color = ThemableBehavior()
+        self.toolbar.title = name
+        for item in self.list_for_item.children:
+            if item.text == name:
+                item.text_color = color.theme_cls.primary_color
+class MymdCard(MDApp):
+    sm=ScreenManager()
+    def build(self):
+
+        Builder.load_file("md_card_py.kv")
+        self.theme_cls.theme_style = "Dark"
+        Screens=[FirstWin(name='Menu_category'),Main_Course(name="Main Course"),Tea_Coffee(name="Tea and Coffee"),Ice_creams(name="Ice Creams"),Cold_drinks(name="Cold Drinks"),Fast_food(name="Fast Food"),Special_dishes(name="Special Dishes")]
+        for screen in Screens:
+            self.sm.add_widget(screen)
+        return self.sm
+
+
+
+
+if __name__ == '__main__':
+
+    MymdCard().run()
+=====================================================================================
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+
+class MainApp(App):
+    def build(self):
+        self.operators = ["/", "*", "+", "-"]
+        self.last_was_operator = None
+        self.last_button = None
+        main_layout = BoxLayout(orientation="vertical")
+        self.solution = TextInput(
+            multiline=False, readonly=True, halign="right", font_size=55
+        )
+        main_layout.add_widget(self.solution)
+        buttons = [
+            ["7", "8", "9", "/"],
+            ["4", "5", "6", "*"],
+            ["1", "2", "3", "-"],
+            [".", "0", "C", "+"],
+        ]
+        for row in buttons:
+            h_layout = BoxLayout()
+            for label in row:
+                button = Button(
+                    text=label,
+                    pos_hint={"center_x": 0.5, "center_y": 0.5},
+                )
+                button.bind(on_press=self.on_button_press)
+                h_layout.add_widget(button)
+            main_layout.add_widget(h_layout)
+
+        equals_button = Button(
+            text="=", pos_hint={"center_x": 0.5, "center_y": 0.5}
+        )
+        equals_button.bind(on_press=self.on_solution)
+        main_layout.add_widget(equals_button)
+
+        return main_layout
+=====================================================================================
+import kivy
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+
+
+class MyGrid(GridLayout):
+    def __init__(self, **kwargs):
+        super(MyGrid, self).__init__(**kwargs)
+        self.cols = 2
+
+        self.add_widget(Label(text="First Name: "))
+        self.name = TextInput(multiline=False)
+        self.add_widget(self.name)
+
+        self.add_widget(Label(text="Last Name: "))
+        self.lastName = TextInput(multiline=False)
+        self.add_widget(self.lastName)
+
+        self.add_widget(Label(text="Email: "))
+        self.email = TextInput(multiline=False)
+        self.add_widget(self.email)
+
+
+class MyApp(App):
+    def build(self):
+        return MyGrid()
+
+
+MyApp().run()
+=====================================================================================
+WINDOW :
+
+
+from kivy.app import App 
+from kivy.uix.label import Label 
+from kivy.core.window import Window
+
+Window.clearcolor = (100/255.0,0,2,1)
+Window.size=(370,600)
+
+class App1(App):
+    pass
+
+if __name__== '__main__':
+    App1().run()
+
+
+
+ 
+Window.clearcolor = (89/255.0,7/255.0,45/255.0,177/255.0)
+
+LABEL:
+
+
+
+class Myapp(App):
+    def build(self):
+        
+        return Label( text = "ok python",
+            color = (.56,0,1,1),
+            font_size=30           
+            )
+
+ 
+
+
+
+
+
+Ou :
+
+
+class Name(App):
+    pass
+
+if __name__== '__main__':
+    Name().run()
+
+
+ 
+ 
+
+
+
+class Name(App):
+    def build(self):
+        pass
+
+if __name__== '__main__':
+    Name().run()
+
+
+
+
+BUTTON :
+from kivy.app import App 
+from kivy.core.window import Window
+from kivy.uix.button import Button
+
+Window.clearcolor = (89/255.0,7/255.0,45,3)
+Window.size=(370,600)
+
+class Myapp(App):
+    def build(self):
+        b1=Button(
+            text="Home",
+            size_hint=(0.3,0.1),
+            font_size='22',
+            pos_hint={'x':0.35,'y':0.19},
+            color=(1,.21,0,1),
+            background_color=(0,.60,.3,1)
+
+        )           
+        return b1   
+
+
+if __name__== '__main__':
+    Myapp().run()
+
+
+ 
+
+
+
+
+
+Ou :
+ 
+Button:
+    text:'Home'
+    size_hint:(0.3,0.1)
+    font_size:'22'
+    pos_hint:{'x':0.35,'y':0.19}
+    color:(1,1,1,1)
+    background_color:(.40,.10,.30,1)
+
+
+
+from kivy.app import App 
+from kivy.core.window import Window
+from kivy.uix.button import Button
+
+Window.clearcolor = (100/255.0,0,0,3)
+Window.size=(370,600)
+
+class Name(App):
+    pass
+         
+if __name__== '__main__':
+    Name().run()
+class Myapp(App):
+    def build(self):
+        b1=Button(
+            text="Home",
+            size_hint=(0.3,0.1),
+            font_size='22',
+            pos_hint={'x':0.35,'y':0.19},
+            color=(1,.21,0,1),
+            background_color=(0,.60,.3,1),
+            on_press = self.clickyes,
+            on_release = self.clickno
+
+        )           
+        return b1   
+    def clickyes(self,yes):
+        print("yes")
+    def clickno (self,no):
+        print('no')   
+
+
+ 
+
+
+TextInput :
+ 
+
+
+ 
+class Myapp(App):
+    def build(self):
+        texo = TextInput(
+            text = 'Enter your email: \n ',
+            multiline= False,
+            font_size=16,
+            pos_hint={'x':0.2,'y':0.6},
+            size_hint=(0.6,0.2)
+
+        )
+                
+        return texo 
+
+
+
+Image:
+ 
+class Myapp(App):
+    def build(self):
+        imj=Image(
+            source ='img.png'
+        )
+    
+        return imj
+
+
+
+ 
+class Myapp(App):
+    def build(self):
+        imj=Image(
+            source ='img.png',
+            size_hint = (0.2,0.2),
+            pos_hint={'x':0.4,'y':0.4}
+        )
+    
+        return imj
+
+
+Image en lien : 
+
+        from kivy.uix.image import AsyncImage
+
+        return AsyncImage(source='http://kivy.org/logos/kivy-logo-black-64.png')
+        
+
+
+
+
+
+Checkbox:
+ 
+class Myapp(App):
+    def build(self):
+        chek=CheckBox()
+        chek.bind(active=clicko)
+        return chek
+        
+def clicko(chek,ok):
+        print('ok')
+if __name__== '__main__':
+    Myapp().run()
+
+
+
+
+ 
+class Myapp(App):
+    def build(self):
+        chek=CheckBox()
+        chek.bind(active=clicko)
+        return chek
+        
+def clicko(chek,ok):
+    if ok :    
+        print('ok')
+    else:
+        print('not ok')    
+if __name__== '__main__':
+    Myapp().run()
+
+
+
+
+ACTIONBAR:
+ 
+class Myapp(App):
+    def build(self):
+        pass
+runTouchApp(Builder.load_string('''
+ActionBar:
+    pos_hint:{'top':1}
+    ActionView:
+        ActionPrevious:
+            title:'MY FIRST APP'
+        ActionButton:
+            text:'Home'
+        ActionButton:
+            text:'Back'
+        ActionGroup:
+            text:'More'
+            color:.3,.6,2,1
+            ActionButton:
+                text:'bt1'
+            ActionButton: 
+                text:'bt2'
+
+'''))
+   
+ 
+class Myapp(App):
+    def build(self):
+        img=Image(source='img3.png')
+        return img   
+        
+runTouchApp(Builder.load_string('''
+ActionBar:
+    pos_hint:{'top':1}
+    ActionView:
+        ActionPrevious:
+            title:'Universite Ibn Tofail'
+            color:.4,.6,2,1
+        ActionButton:
+            text:'Home'
+        ActionButton:
+            text:'Back'
+            color:100/255.0,0,0,3
+            background_color: 1,1,1,3
+        ActionGroup:
+            text:'More'
+            color:1,1,2,1
+            ActionButton:
+                text:'EST'
+                color:.3,.7,2,1
+            ActionButton: 
+                text:'FS'
+                color:.7,.8,2,2
+            ActionButton: 
+                text:'ENSA'
+                color:.2,.9,2,4
+            ActionButton: 
+                text:'ENCG'
+                color:.1,.6,2,3
+
+'''))
+
+
+
+=====================================================================================
+import kivy
+from kivy.app import App 
+from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
+from kivy.uix.image import Image
+from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
+
+from kivy.core.audio import SoundLoader
+from kivy.lang import Builder 
+from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import ScreenManager
+from kivy.base import runTouchApp
+from glob import glob
+from random import randint
+from os.path import join , dirname
+from kivy.uix.scatter import Scatter
+from kivy.properties import StringProperty
+from kivy.core.window import Window
+
+
+=====================================================================================
+import kivy
+from kivy.app import App 
+from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
+from kivy.uix.image import Image
+from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
+
+from kivy.core.audio import SoundLoader
+from kivy.lang import Builder 
+from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import ScreenManager
+from kivy.base import runTouchApp
+from glob import glob
+from random import randint
+from os.path import join , dirname
+from kivy.uix.scatter import Scatter
+from kivy.properties import StringProperty
+from kivy.core.window import Window
+from kivy.uix.boxlayout import BoxLayout
+import sqlite3 
+
+Window.clearcolor = (89/255.0,7/255.0,45,3)
+Window.size=(400,600)
+
+class Demo(App):
+    def build(self):
+        
+
+        conn = sqlite3.connect('frst.db')
+        c=conn.cursor()
+        c.execute("""CREATE TABLE if not exists cust (name text) """)
+       
+        conn.commit()
+        conn.close()
+        return Builder.load_file('frst.kv')
+
+
+    def submit(self):
+        conn = sqlite3.connect('frst.db')
+        c=conn.cursor()
+        c.execute("INSERT INTO cust VALUES (:frst)",
+          {
+          'frst': self.root.ids.word_input.text,
+          } )
+
+        self.root.ids.word_label.text = f'{self.root.ids.word_input.text } Added'
+        
+        self.root.ids.word_input.text=''
+
+        conn.commit()
+        conn.close()
+
+
+    def ok(self):
+        conn = sqlite3.connect('frst.db')
+        c=conn.cursor()
+
+        c.execute("SELECT * FROM cust") 
+        records=c.fetchall()
+
+        word=''
+
+        for record in records:
+            word= f' { word}\n{record[0]}'
+            self.root.ids.word_label.text = f' {word}'
+        
+
+        conn.commit()
+        conn.close()
+
+
+if __name__== '__main__':
+    Demo().run()
+
+
+=====================================================================================
+FloatLayout:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.width, root.height
+
+        Label:
+            id: word_label
+            text_size: self.size
+            text: "           Enter A Name:\n\n\n"
+            font_hint:(0.1,0.9) 
+            font_size: 32
+        
+        TextInput:
+            id: word_input
+            multiline: False
+            size_hint:(1, .5)
+            
+        Button:
+            size_hint:(1, .5)
+            font_size:32
+            text: "submit"
+            on_press: app.submit()
+            
+
+        Button:
+            size_hint:(1, .5)
+            font_size:32
+            text: "ok2"
+            on_press: app.ok()
+            
+=====================================================================================
+Wm:
+    W1:
+    W2:
+    Est:
+    Ensa:
+    Encg:
+    Fs:
+    Not:
+    Etu:
+    Aut:
+    Error:
+    Mod:
+    Res:
+
+
+
+
+<W1>:
+    name:'W1'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img3.png'
+            Label:
+                text: 'LOGING'
+                color: 1 , 0 , 0 , 1
+                font_size: 22
+            Label:
+                text: 'PLEASE ENTER PASSWORD:'
+                font_hint:(0.1,0.3)
+
+            TextInput:
+                id:passw
+                text:''
+                multiline: False
+                size_hint:(0.1,0.3)
+
+        Button:
+            text:'LOGIN'
+            size_hint:(0.1,0.1)
+            on_release:
+                app.root.current='Mod' if passw.text=='1' else 'Error'
+                root.manager.transition.direction='up'
+
+<W2>:
+    name:'W2'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:2
+            Image:
+                source:'img3.png'
+                size:(30,30)
+            Label:
+                text:'WELCOME'
+
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'EST'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'ENSA'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'FS'
+                on_release:
+                    app.root.current='Fs'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'ENCG'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W1'
+                root.manager.transition.direction='down'
+#=================================================================================
+
+<Est>:
+    name:'Est'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img1.png'
+            Label:
+                text: 'WELCOME TO EST KENITRA'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'LES ETUDIENTS'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'LES NOTES'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'LES MODULES'
+                on_release:
+                    app.root.current='Mod'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'VALIDATION'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W2'
+                root.manager.transition.direction='down'
+
+#=================================================================================
+
+<Fs>:
+    name:'Fs'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img1.png'
+            Label:
+                text: 'WELCOME TO LA FAC DE SCIENCE, KENITRA'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'LES ETUDIENTS'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'LES NOTES'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'LES MODULES'
+                on_release:
+                    app.root.current='Fs'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'VALIDATION'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W2'
+                root.manager.transition.direction='down'
+#=================================================================================
+
+
+<Encg>:
+    name:'Encg'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img1.png'
+            Label:
+                text: 'WELCOME TO EST KENITRA'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+        
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'LES ETUDIENTS'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'LES NOTES'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'LES MODULES'
+                on_release:
+                    app.root.current='Mod'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'VALIDATION'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W2'
+                root.manager.transition.direction='down'
+#=================================================================================
+
+
+<Ensa>:
+    name:'Ensa'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img1.png'
+            Label:
+                text: 'WELCOME TO EST KENITRA'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+        GridLayout:
+            cols:2
+            rows:3
+            Button:
+                text: 'LES ETUDIENTS'
+                on_release:
+                    app.root.current='Est'
+                    root.manager.transition.direction='up'
+
+            Button:
+                text: 'LES NOTES'
+                on_release:
+                    app.root.current='Ensa'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'LES MODULES'
+                on_release:
+                    app.root.current='Fs'
+                    root.manager.transition.direction='up'
+            Button:
+                text: 'VALIDATION'
+                on_release:
+                    app.root.current='Encg'
+                    root.manager.transition.direction='up'
+        Button:
+            text:'GO BACK'
+            size_hint:.1,0.3
+            on_release:
+                app.root.current='W2'
+                root.manager.transition.direction='down'
+#=================================================================================
+<Not>:
+    name:'Not'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img21.jpg'
+            Label:
+                text: 'LES NOTES'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+#=================================================================================
+
+<Etu>:
+    name:'Etu'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img21.jpg'
+            Label:
+                text: 'LES ETUDIENTS'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+
+#=================================================================================
+
+
+#=================================================================================
+<Mod>:
+    name:'Mod'
+    GridLayout:
+        rows:2
+        Label:
+            id:LMOD
+            text:'ENTREZ LES NOTES DES MODULES DE S1: '
+            color: .89 , .97 , .130 , 1
+            font_size: 16
+        GridLayout:
+            cols:2
+            rows:5
+            Label:
+                text:'MODELE: 1'
+
+            TextInput:
+                id:M1
+                text:'hn'
+            Label:
+                text:'MODELE: 2'
+
+            TextInput:
+                id:M2
+                text:''
+            Label:
+                text:'MODELE: 3'
+
+            TextInput:
+                id:M3
+                text:''
+            Label:
+                text:'MODELE: 4'
+            TextInput:
+                id:M4
+                text:''
+
+            Button:
+                text:'RESULTAT:'
+                on_release:
+                    app.root.current='Res' if int(M1.text)>=12 else 'Mod'
+                    root.manager.transition.direction='up'
+                    
+                
+<Res>:
+    name:'Res'
+    GridLayout:
+        rows:2
+        Label:
+            text:'VALIDEE ,,'
+            color: .89 , .97 , .130 , 1
+            font_size: 16
+        Button:
+            text:'BACK'
+            on_release:
+                app.root.current= 'Mod'
+                root.manager.transition.direction='down'
+                    
+
+
+            
+            
+            
+                   
+
+
+#=================================================================================
+
+
+<Aut>:
+    name:'Aut'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img21.jpg'
+            Label:
+                text: 'AUTRE'
+                color: 1 , 1 , 1 , 1
+                font_size: 22
+
+#=================================================================================
+<Error>:
+    name:'Error'
+    GridLayout:
+        cols:1
+        GridLayout:
+            rows:4
+            Image:
+                source:'img2.png'
+            Label:
+                text: 'ERROR IN PASSWORD !!! '
+                color: 100/255.0 , 4 , 0.6 , 1
+                font_size: 22
+            Button:
+                text:' TRY AGAINE !!'
+                size_hint:0.1,0.3
+                on_release:
+                    app.root.current='W1'
+                    root.manager.transition.direction='down'
+                
+
+
+
+#=================================================================================
+#=================================================================================
+#=================================================================================
+#=================================================================================
+
+=====================================================================================
+=====================================================================================
+=====================================================================================
+=====================================================================================
+=====================================================================================
+=====================================================================================
